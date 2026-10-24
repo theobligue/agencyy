@@ -84,54 +84,63 @@ async function sendAdminNotification(inquiry) {
     return;
   }
   const mailOptions = {
-    from: `"the oblique Alerts" <${SMTP_EMAIL}>`,
+    from: `"the oblique Studio" <${SMTP_EMAIL}>`,
     to: ADMIN_EMAIL,
     replyTo: inquiry.email,
-    subject: `⚡ New Client Inquiry: ${inquiry.name} (${inquiry.company || 'Direct Client'})`,
+    subject: `⚡ New Project Inquiry: ${inquiry.name} (${inquiry.company || 'Direct Client'})`,
+    text: `New Project Inquiry from the oblique Contact Form:
+
+Client Name: ${inquiry.name}
+Email: ${inquiry.email}
+Phone: ${inquiry.phone || 'Not provided'}
+Company: ${inquiry.company || 'Not provided'}
+Subject: ${inquiry.subject || 'General Inquiry'}
+
+Project Message:
+${inquiry.message}
+
+---
+Received at: ${new Date().toLocaleString()}
+Reply directly to: ${inquiry.email}`,
     html: `
-      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 620px; margin: 0 auto; background: #0c0e14; color: #f1f5f9; border-radius: 16px; overflow: hidden; border: 1px solid #1e293b;">
-        <div style="background: linear-gradient(135deg, #FF5E62 0%, #8B5CF6 100%); padding: 28px 24px; text-align: center;">
-          <h1 style="margin: 0; font-size: 24px; font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">the oblique</h1>
-          <p style="margin: 6px 0 0 0; color: rgba(255,255,255,0.9); font-size: 14px;">⚡ New Project Inquiry Received</p>
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; color: #1e293b; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0;">
+        <div style="background: #0f172a; padding: 24px; text-align: center;">
+          <h1 style="margin: 0; font-size: 22px; font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">the oblique</h1>
+          <p style="margin: 4px 0 0 0; color: #94a3b8; font-size: 13px;">New Client Project Brief</p>
         </div>
-        <div style="padding: 28px 24px;">
-          <p style="font-size: 15px; color: #cbd5e1; margin-top: 0;">You have received a new project submission through the contact form:</p>
-          
-          <table style="width: 100%; border-collapse: collapse; margin: 20px 0; background: #151923; border-radius: 10px; overflow: hidden;">
+        <div style="padding: 24px;">
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
             <tr>
-              <td style="padding: 12px 16px; font-weight: 700; color: #94a3b8; width: 120px; border-bottom: 1px solid #1e293b;">Name</td>
-              <td style="padding: 12px 16px; color: #ffffff; font-weight: 600; border-bottom: 1px solid #1e293b;">${inquiry.name}</td>
+              <td style="padding: 10px 14px; font-weight: 700; color: #64748b; width: 110px; border-bottom: 1px solid #f1f5f9;">Name</td>
+              <td style="padding: 10px 14px; color: #0f172a; font-weight: 600; border-bottom: 1px solid #f1f5f9;">${inquiry.name}</td>
             </tr>
             <tr>
-              <td style="padding: 12px 16px; font-weight: 700; color: #94a3b8; border-bottom: 1px solid #1e293b;">Email</td>
-              <td style="padding: 12px 16px; color: #38bdf8; border-bottom: 1px solid #1e293b;"><a href="mailto:${inquiry.email}" style="color: #38bdf8; text-decoration: none;">${inquiry.email}</a></td>
+              <td style="padding: 10px 14px; font-weight: 700; color: #64748b; border-bottom: 1px solid #f1f5f9;">Email</td>
+              <td style="padding: 10px 14px; color: #2563eb; border-bottom: 1px solid #f1f5f9;"><a href="mailto:${inquiry.email}" style="color: #2563eb; text-decoration: none;">${inquiry.email}</a></td>
             </tr>
             <tr>
-              <td style="padding: 12px 16px; font-weight: 700; color: #94a3b8; border-bottom: 1px solid #1e293b;">Phone</td>
-              <td style="padding: 12px 16px; color: #ffffff; border-bottom: 1px solid #1e293b;">${inquiry.phone || 'Not provided'}</td>
+              <td style="padding: 10px 14px; font-weight: 700; color: #64748b; border-bottom: 1px solid #f1f5f9;">Phone</td>
+              <td style="padding: 10px 14px; color: #0f172a; border-bottom: 1px solid #f1f5f9;">${inquiry.phone || 'Not provided'}</td>
             </tr>
             <tr>
-              <td style="padding: 12px 16px; font-weight: 700; color: #94a3b8; border-bottom: 1px solid #1e293b;">Company</td>
-              <td style="padding: 12px 16px; color: #ffffff; border-bottom: 1px solid #1e293b;">${inquiry.company || 'Not provided'}</td>
+              <td style="padding: 10px 14px; font-weight: 700; color: #64748b; border-bottom: 1px solid #f1f5f9;">Company</td>
+              <td style="padding: 10px 14px; color: #0f172a; border-bottom: 1px solid #f1f5f9;">${inquiry.company || 'Not provided'}</td>
             </tr>
             <tr>
-              <td style="padding: 12px 16px; font-weight: 700; color: #94a3b8; border-bottom: 1px solid #1e293b;">Subject</td>
-              <td style="padding: 12px 16px; color: #ffffff; border-bottom: 1px solid #1e293b;">${inquiry.subject || 'General Inquiry'}</td>
+              <td style="padding: 10px 14px; font-weight: 700; color: #64748b; border-bottom: 1px solid #f1f5f9;">Subject</td>
+              <td style="padding: 10px 14px; color: #0f172a; border-bottom: 1px solid #f1f5f9;">${inquiry.subject || 'General Inquiry'}</td>
             </tr>
             <tr>
-              <td style="padding: 12px 16px; font-weight: 700; color: #94a3b8; vertical-align: top;">Message</td>
-              <td style="padding: 12px 16px; color: #f1f5f9; line-height: 1.6; white-space: pre-wrap;">${inquiry.message}</td>
+              <td style="padding: 10px 14px; font-weight: 700; color: #64748b; vertical-align: top;">Message</td>
+              <td style="padding: 10px 14px; color: #334155; line-height: 1.6; white-space: pre-wrap;">${inquiry.message}</td>
             </tr>
           </table>
 
-          <div style="text-align: center; margin-top: 28px;">
-            <a href="mailto:${inquiry.email}?subject=Re:%20${encodeURIComponent(inquiry.subject || 'Project Inquiry')} - the oblique" style="display: inline-block; background: linear-gradient(135deg, #FF5E62 0%, #8B5CF6 100%); color: #ffffff; text-decoration: none; padding: 12px 28px; border-radius: 9999px; font-weight: 700; font-size: 14px;">
-              Reply Directly to ${inquiry.name} ↗
+          <div style="text-align: center; margin-top: 24px;">
+            <a href="mailto:${inquiry.email}?subject=Re:%20${encodeURIComponent(inquiry.subject || 'Project Inquiry')} - the oblique" style="display: inline-block; background: #0f172a; color: #ffffff; text-decoration: none; padding: 12px 28px; border-radius: 8px; font-weight: 600; font-size: 14px;">
+              Reply to ${inquiry.name} ↗
             </a>
           </div>
-        </div>
-        <div style="background: #08090d; padding: 16px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #1e293b;">
-          the oblique Digital Agency · Ludhiana, Punjab
         </div>
       </div>
     `
@@ -140,65 +149,124 @@ async function sendAdminNotification(inquiry) {
   return transporter.sendMail(mailOptions);
 }
 
-// Helper function to send Auto-Reply to Client
+// Helper function to send Auto-Reply to Client (Optimized for Primary Inbox Delivery)
 async function sendClientAutoReply(inquiry) {
   if (!transporter) {
     console.warn('⚠️ Nodemailer transporter not configured.');
     return;
   }
+
+  const subjectTopic = inquiry.subject ? inquiry.subject.trim() : 'Project Inquiry';
+  const mailSubject = `Re: ${subjectTopic} — the oblique`;
+
+  const plainText = `Hi ${inquiry.name},
+
+Thank you for reaching out to the oblique. We have successfully received your project inquiry.
+
+Our senior team personally reviews every brief and will get back to you within 24 hours.
+
+Summary of your message:
+Subject: ${subjectTopic}
+"${inquiry.message}"
+
+Need an urgent response or want to send a quick voice note?
+- WhatsApp: ${WHATSAPP_LINK}
+- Instagram: ${INSTAGRAM_URL}
+- Direct Email: ${SMTP_EMAIL}
+
+Warm regards,
+The Team at the oblique
+Ludhiana, Punjab
+https://theoblique.agency`;
+
   const mailOptions = {
-    from: `"the oblique" <${SMTP_EMAIL}>`,
+    from: `"the oblique Studio" <${SMTP_EMAIL}>`,
     to: inquiry.email,
-    subject: `Thanks for showing interest in the oblique! We've received your brief.`,
+    replyTo: SMTP_EMAIL,
+    subject: mailSubject,
+    text: plainText,
+    headers: {
+      'X-Priority': '3',
+      'X-Auto-Response-Suppress': 'OOF, AutoReply',
+      'Precedence': 'bulk'
+    },
     html: `
-      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 620px; margin: 0 auto; background: #0c0e14; color: #f1f5f9; border-radius: 16px; overflow: hidden; border: 1px solid #1e293b;">
-        <div style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); padding: 36px 28px; text-align: center; border-bottom: 1px solid #312e81;">
-          <h1 style="margin: 0; font-size: 26px; font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">the oblique</h1>
-          <p style="margin: 8px 0 0 0; color: #a5b4fc; font-size: 14px;">Digital Engineering · Brand Identity · Growth Systems</p>
-        </div>
-        
-        <div style="padding: 32px 28px;">
-          <h2 style="margin-top: 0; font-size: 20px; color: #ffffff; font-weight: 700;">Hi ${inquiry.name},</h2>
-          <p style="color: #cbd5e1; font-size: 15px; line-height: 1.65;">
-            Thank you for showing interest in <strong>the oblique</strong>. We’re excited to learn more about your vision and explore how we can build something remarkable together.
-          </p>
-          <p style="color: #cbd5e1; font-size: 15px; line-height: 1.65;">
-            Our founding team has received your project details and is currently reviewing your brief. We make it a point to personally review every inquiry and will respond within <strong>24 hours</strong>.
-          </p>
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body style="margin: 0; padding: 20px 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b;">
+        <div style="max-width: 580px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+          
+          <!-- Header -->
+          <div style="background: #090B10; padding: 32px 28px; text-align: left; border-bottom: 2px solid #2563eb;">
+            <div style="font-size: 22px; font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">the oblique</div>
+            <div style="font-size: 13px; color: #94a3b8; margin-top: 4px;">Digital Engineering · Brand Identity · Growth Systems</div>
+          </div>
 
-          <div style="margin: 28px 0; padding: 20px; background: #151923; border-radius: 12px; border: 1px solid #1e293b;">
-            <div style="font-size: 12px; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">
-              Summary of your inquiry
+          <!-- Body Content -->
+          <div style="padding: 32px 28px;">
+            <h2 style="margin: 0 0 16px 0; font-size: 19px; font-weight: 700; color: #0f172a;">
+              Hi ${inquiry.name},
+            </h2>
+            
+            <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6; color: #334155;">
+              Thank you for reaching out to <strong>the oblique</strong>. We have received your project details and brief.
+            </p>
+
+            <p style="margin: 0 0 20px 0; font-size: 15px; line-height: 1.6; color: #334155;">
+              Our founding team personally reviews every project inquiry and we will get back to you within <strong>24 hours</strong> with initial thoughts and next steps.
+            </p>
+
+            <!-- Inquiry Summary Box -->
+            <div style="background: #f1f5f9; border-left: 4px solid #2563eb; border-radius: 4px; padding: 14px 18px; margin: 24px 0;">
+              <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;">
+                Your Brief Summary
+              </div>
+              <div style="font-size: 14px; font-weight: 600; color: #0f172a; margin-bottom: 4px;">
+                ${subjectTopic}
+              </div>
+              <div style="font-size: 13px; color: #475569; line-height: 1.5; white-space: pre-wrap;">"${inquiry.message}"</div>
             </div>
-            <div style="font-size: 14px; color: #e2e8f0; margin-bottom: 6px;"><strong>Subject:</strong> ${inquiry.subject || 'New Project Inquiry'}</div>
-            <div style="font-size: 13px; color: #94a3b8; line-height: 1.5; white-space: pre-wrap;">"${inquiry.message}"</div>
+
+            <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.6; color: #475569;">
+              Have immediate scoping questions or prefer chatting directly? Connect with us on WhatsApp or Instagram:
+            </p>
+
+            <!-- Buttons -->
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin: 18px 0 24px 0;">
+              <tr>
+                <td style="padding-right: 12px;">
+                  <a href="${WHATSAPP_LINK}" target="_blank" style="display: inline-block; background: #10b981; color: #ffffff; text-decoration: none; padding: 10px 18px; border-radius: 6px; font-weight: 600; font-size: 13px;">
+                    Chat on WhatsApp ↗
+                  </a>
+                </td>
+                <td>
+                  <a href="${INSTAGRAM_URL}" target="_blank" style="display: inline-block; background: #e11d48; color: #ffffff; text-decoration: none; padding: 10px 18px; border-radius: 6px; font-weight: 600; font-size: 13px;">
+                    Instagram @theobligue ↗
+                  </a>
+                </td>
+              </tr>
+            </table>
+
+            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 28px 0 20px 0;">
+
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #64748b;">
+              Warm regards,<br>
+              <strong style="color: #0f172a;">The Team at the oblique</strong><br>
+              <span style="font-size: 12px; color: #94a3b8;">Ludhiana, Punjab · <a href="mailto:${SMTP_EMAIL}" style="color: #2563eb; text-decoration: none;">${SMTP_EMAIL}</a></span>
+            </p>
           </div>
 
-          <p style="color: #cbd5e1; font-size: 15px; line-height: 1.65;">
-            Need an urgent response or prefer a quick chat? Connect directly with us on WhatsApp or explore our latest design drops on Instagram:
-          </p>
-
-          <!-- Social Connect Buttons -->
-          <div style="display: flex; gap: 14px; margin: 24px 0 20px 0; flex-wrap: wrap;">
-            <a href="${WHATSAPP_LINK}" target="_blank" style="display: inline-block; background: #10b981; color: #ffffff; text-decoration: none; padding: 12px 22px; border-radius: 9999px; font-weight: 700; font-size: 14px;">
-              💬 Chat on WhatsApp ↗
-            </a>
-            <a href="${INSTAGRAM_URL}" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #e1306c 0%, #fd1d1d 50%, #f77737 100%); color: #ffffff; text-decoration: none; padding: 12px 22px; border-radius: 9999px; font-weight: 700; font-size: 14px;">
-              📸 Follow on Instagram ↗
-            </a>
+          <!-- Footer -->
+          <div style="background: #f8fafc; padding: 14px 28px; text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #e2e8f0;">
+            © ${new Date().getFullYear()} the oblique. All rights reserved.
           </div>
-
-          <p style="color: #94a3b8; font-size: 14px; margin-top: 30px; line-height: 1.5;">
-            Warm regards,<br />
-            <strong style="color: #ffffff;">The Team at the oblique</strong><br />
-            <span style="font-size: 12px; color: #64748b;">Ludhiana, Punjab · <a href="mailto:${SMTP_EMAIL}" style="color: #818cf8; text-decoration: none;">${SMTP_EMAIL}</a></span>
-          </p>
         </div>
-
-        <div style="background: #08090d; padding: 16px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #1e293b;">
-          © ${new Date().getFullYear()} the oblique. All rights reserved.
-        </div>
-      </div>
+      </body>
+      </html>
     `
   };
 
