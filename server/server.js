@@ -180,93 +180,34 @@ Ludhiana, Punjab
 https://theoblique.agency`;
 
   const mailOptions = {
-    from: `"the oblique Studio" <${SMTP_EMAIL}>`,
+    from: `"the oblique" <${SMTP_EMAIL}>`,
     to: inquiry.email,
     replyTo: SMTP_EMAIL,
     subject: mailSubject,
     text: plainText,
-    headers: {
-      'X-Priority': '3',
-      'X-Auto-Response-Suppress': 'OOF, AutoReply',
-      'Precedence': 'bulk'
-    },
     html: `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      </head>
-      <body style="margin: 0; padding: 20px 0; background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #1e293b;">
-        <div style="max-width: 580px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
-          
-          <!-- Header -->
-          <div style="background: #090B10; padding: 32px 28px; text-align: left; border-bottom: 2px solid #2563eb;">
-            <div style="font-size: 22px; font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">the oblique</div>
-            <div style="font-size: 13px; color: #94a3b8; margin-top: 4px;">Digital Engineering · Brand Identity · Growth Systems</div>
-          </div>
-
-          <!-- Body Content -->
-          <div style="padding: 32px 28px;">
-            <h2 style="margin: 0 0 16px 0; font-size: 19px; font-weight: 700; color: #0f172a;">
-              Hi ${inquiry.name},
-            </h2>
-            
-            <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6; color: #334155;">
-              Thank you for reaching out to <strong>the oblique</strong>. We have received your project details and brief.
-            </p>
-
-            <p style="margin: 0 0 20px 0; font-size: 15px; line-height: 1.6; color: #334155;">
-              Our founding team personally reviews every project inquiry and we will get back to you within <strong>24 hours</strong> with initial thoughts and next steps.
-            </p>
-
-            <!-- Inquiry Summary Box -->
-            <div style="background: #f1f5f9; border-left: 4px solid #2563eb; border-radius: 4px; padding: 14px 18px; margin: 24px 0;">
-              <div style="font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px;">
-                Your Brief Summary
-              </div>
-              <div style="font-size: 14px; font-weight: 600; color: #0f172a; margin-bottom: 4px;">
-                ${subjectTopic}
-              </div>
-              <div style="font-size: 13px; color: #475569; line-height: 1.5; white-space: pre-wrap;">"${inquiry.message}"</div>
-            </div>
-
-            <p style="margin: 0 0 16px 0; font-size: 14px; line-height: 1.6; color: #475569;">
-              Have immediate scoping questions or prefer chatting directly? Connect with us on WhatsApp or Instagram:
-            </p>
-
-            <!-- Buttons -->
-            <table role="presentation" border="0" cellpadding="0" cellspacing="0" style="margin: 18px 0 24px 0;">
-              <tr>
-                <td style="padding-right: 12px;">
-                  <a href="${WHATSAPP_LINK}" target="_blank" style="display: inline-block; background: #10b981; color: #ffffff; text-decoration: none; padding: 10px 18px; border-radius: 6px; font-weight: 600; font-size: 13px;">
-                    Chat on WhatsApp ↗
-                  </a>
-                </td>
-                <td>
-                  <a href="${INSTAGRAM_URL}" target="_blank" style="display: inline-block; background: #e11d48; color: #ffffff; text-decoration: none; padding: 10px 18px; border-radius: 6px; font-weight: 600; font-size: 13px;">
-                    Instagram @theobligue ↗
-                  </a>
-                </td>
-              </tr>
-            </table>
-
-            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 28px 0 20px 0;">
-
-            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #64748b;">
-              Warm regards,<br>
-              <strong style="color: #0f172a;">The Team at the oblique</strong><br>
-              <span style="font-size: 12px; color: #94a3b8;">Ludhiana, Punjab · <a href="mailto:${SMTP_EMAIL}" style="color: #2563eb; text-decoration: none;">${SMTP_EMAIL}</a></span>
-            </p>
-          </div>
-
-          <!-- Footer -->
-          <div style="background: #f8fafc; padding: 14px 28px; text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #e2e8f0;">
-            © ${new Date().getFullYear()} the oblique. All rights reserved.
-          </div>
+      <div style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; line-height: 1.6; color: #222222; max-width: 560px; margin: 0 auto; padding: 24px; background: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px;">
+        <p style="font-size: 18px; font-weight: bold; margin-top: 0; color: #111111;">the oblique</p>
+        
+        <p>Hi ${inquiry.name},</p>
+        
+        <p>Thank you for reaching out to <strong>the oblique</strong>. We have successfully received your project inquiry.</p>
+        
+        <p>Our founding team is reviewing your requirements and will connect with you within <strong>24 hours</strong> with initial recommendations.</p>
+        
+        <div style="margin: 20px 0; padding: 14px 16px; background: #f8f9fa; border-left: 3px solid #2563eb; font-size: 14px; color: #333333; border-radius: 4px;">
+          <strong>Subject:</strong> ${subjectTopic}<br>
+          <span style="color: #666666; font-size: 13px;">"${inquiry.message}"</span>
         </div>
-      </body>
-      </html>
+        
+        <p>If you have any immediate questions or would like to send a quick note, feel free to reply directly to this email or reach us on WhatsApp at <a href="${WHATSAPP_LINK}" style="color: #2563eb; text-decoration: none; font-weight: 600;">+91 77174 53630</a>.</p>
+        
+        <p style="margin-top: 28px; padding-top: 16px; border-top: 1px solid #eeeeee; color: #555555; font-size: 14px;">
+          Warm regards,<br>
+          <strong style="color: #111111;">The Team at the oblique</strong><br>
+          <span style="font-size: 13px; color: #777777;">Ludhiana, Punjab · <a href="${INSTAGRAM_URL}" style="color: #2563eb; text-decoration: none;">@theobligue</a> · <a href="mailto:${SMTP_EMAIL}" style="color: #2563eb; text-decoration: none;">${SMTP_EMAIL}</a></span>
+        </p>
+      </div>
     `
   };
 
